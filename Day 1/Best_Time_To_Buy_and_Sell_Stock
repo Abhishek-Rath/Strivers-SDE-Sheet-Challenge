@@ -1,0 +1,45 @@
+// Brute force: 2 for loops and check for each i when the stock can be sold formax profit
+// T.C: O(n^2)
+
+int maximumProfit(vector<int> &prices){
+    int n = prices.size();
+    int maxProfit = 0;
+
+    for(int i = 0; i < n; i++) {
+        for(int j = i+1; j < n; j++) {
+            int profit = prices[j] - prices[i];
+            maxProfit = max(maxProfit, profit);
+        }
+    }
+    return maxProfit;
+}
+
+// Optimal Approach: T.C: O(n)
+
+/*
+Idea: We will linearly travel the array. We can maintain a minimum from the start of the array and compare it with every element of the array,
+     if it is greater than the minimum then take the difference and maintain it in max, otherwise update the minimum.
+
+Algorithm:
+
+    Create a variable maxProfit and store 0 initially.
+    Create a variable minPrice and store some larger value(ex: MAX_VALUE) value initially.
+    Run a for loop from 0 to n.
+    Update the minPrice if it is greater than the current element of the array
+    Take the difference of the minPrice with the current element of the array and compare and maintain it in maxProfit.
+    Return the maxProfit.
+
+*/
+
+int maximumProfit(vector<int> &prices){
+    int n = prices.size();
+    int maxProfit = 0;
+    int minPrice = INT_MAX;
+
+    for(int i = 0; i < n; i++) {
+        minPrice = min(minPrice, prices[i]);
+        int profit = prices[i] - minPrice;
+        maxProfit = max(maxProfit, profit);
+    }
+    return maxProfit;
+}
